@@ -1,5 +1,6 @@
 package com.phone_categorization.controller;
 
+import com.phone_categorization.entity.PhoneCategory;
 import com.phone_categorization.services.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ public class PhoneController
     private CustomerServiceImpl customerService;
 
     @RequestMapping(value = "phoneList", method = RequestMethod.GET)
-    public List<String> readCustomers()
+    public List<PhoneCategory> readCustomers()
     {
         return customerService.getAllCustomers();
     }

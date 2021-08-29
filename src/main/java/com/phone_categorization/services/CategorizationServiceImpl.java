@@ -8,24 +8,37 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 public class CategorizationServiceImpl implements CategorizationService
 {
+    final String cameroonCode = "(237)";
+    final String cameroonPattern = "\\(237\\)\\ ?[2368]\\d{7,8}$";
+    final String ethiopiaCode = "(251)";
+    final String ethiopiaPattern = "\\(251\\)\\ ?[1-59]\\d{8}$";
+    final String moroccoCode = "(212)";
+    final String moroccoPattern = "\\(212\\)\\ ?[5-9]\\d{8}$";
+    final String mozambiqueCode = "(258)";
+    final String mozambiquePattern = "\\(258\\)\\ ?[28]\\d{7,8}$";
+    final String ugandaCode = "(256)";
+    final String ugandaPattern = "\\(256\\)\\ ?\\d{9}$";
+
 
     @Override
     public List<PhoneCategory> categorizePhoneNumbers(List<Customer> customers)
     {
-        List<PhoneCategory> phoneCategories = new ArrayList<>();
-        categorizeCountries(customers);
-        return phoneCategories;
+        return categorizeCountries(customers);
     }
 
-    private void categorizeCountries(List<Customer> customers)
+    private List<PhoneCategory> categorizeCountries(List<Customer> customers)
     {
         List<PhoneCategory> phoneCategories = convertCustomerToPhoneCategory(customers);
-
-
+        if (phoneCategories.size() > 0)
+            return categorizeValidAndNotValid(phoneCategories);
+        else
+            return null;
     }
 
     private List<PhoneCategory> convertCustomerToPhoneCategory(List<Customer> customers)
@@ -50,9 +63,47 @@ public class CategorizationServiceImpl implements CategorizationService
         return phoneCategories;
     }
 
-    private List<PhoneCategory> validate()
+
+    private List<PhoneCategory> categorizeValidAndNotValid(List<PhoneCategory> phoneCategories)
     {
-        return null;
+        List<PhoneCategory> validatedPhoneNumbers = new ArrayList();
+
+        List<PhoneCategory> cameroon = validate(getPhoneCategoryByCode(phoneCategories, cameroonCode), cameroonPattern);
+        List<PhoneCategory> ethiopia = validate(getPhoneCategoryByCode(phoneCategories, ethiopiaCode), ethiopiaPattern);
+        List<PhoneCategory> morocco = validate(getPhoneCategoryByCode(phoneCategories, moroccoCode), moroccoPattern);
+        List<PhoneCategory> mozambique = validate(getPhoneCategoryByCode(phoneCategories, mozambiqueCode), mozambiquePattern);
+        List<PhoneCategory> uganda = validate(getPhoneCategoryByCode(phoneCategories, ugandaCode), ugandaPattern);
+
+        validatedPhoneNumbers.addAll(cameroon);
+        validatedPhoneNumbers.addAll(ethiopia);
+        validatedPhoneNumbers.addAll(morocco);
+        validatedPhoneNumbers.addAll(mozambique);
+        validatedPhoneNumbers.addAll(uganda);
+
+        return validatedPhoneNumbers;
+    }
+
+    private List<PhoneCategory> getPhoneCategoryByCode(List<PhoneCategory> phoneCategories, String code)
+    {
+        return phoneCategories.stream().filter(element -> element.getCode().equals(code)).
+                collect(Collectors.toList());
+    }
+
+    private List<PhoneCategory> validate(List<PhoneCategory> phoneCategories, String patern)
+    {
+
+        for (PhoneCategory phoneCategory : phoneCategories)
+        {
+            Pattern pattern = Pattern.compile(patern);
+            if (pattern.matcher(phoneCategory.getPhone()).matches())
+            {
+                phoneCategory.setState("Valid");
+            } else
+            {
+                phoneCategory.setState("Not valid");
+            }
+        }
+        return phoneCategories;
     }
 
 
