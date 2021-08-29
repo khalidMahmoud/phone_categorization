@@ -2,6 +2,7 @@ package com.phone_categorization.services;
 
 import com.phone_categorization.entity.Customer;
 import com.phone_categorization.entity.PhoneCategory;
+import com.phone_categorization.utils.Definations;
 import com.phone_categorization.utils.Util;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +15,6 @@ import java.util.stream.Collectors;
 @Service
 public class CategorizationServiceImpl implements CategorizationService
 {
-    final String cameroonCode = "(237)";
-    final String cameroonPattern = "\\(237\\)\\ ?[2368]\\d{7,8}$";
-    final String ethiopiaCode = "(251)";
-    final String ethiopiaPattern = "\\(251\\)\\ ?[1-59]\\d{8}$";
-    final String moroccoCode = "(212)";
-    final String moroccoPattern = "\\(212\\)\\ ?[5-9]\\d{8}$";
-    final String mozambiqueCode = "(258)";
-    final String mozambiquePattern = "\\(258\\)\\ ?[28]\\d{7,8}$";
-    final String ugandaCode = "(256)";
-    final String ugandaPattern = "\\(256\\)\\ ?\\d{9}$";
 
 
     @Override
@@ -68,11 +59,11 @@ public class CategorizationServiceImpl implements CategorizationService
     {
         List<PhoneCategory> validatedPhoneNumbers = new ArrayList();
 
-        List<PhoneCategory> cameroon = validate(getPhoneCategoryByCode(phoneCategories, cameroonCode), cameroonPattern);
-        List<PhoneCategory> ethiopia = validate(getPhoneCategoryByCode(phoneCategories, ethiopiaCode), ethiopiaPattern);
-        List<PhoneCategory> morocco = validate(getPhoneCategoryByCode(phoneCategories, moroccoCode), moroccoPattern);
-        List<PhoneCategory> mozambique = validate(getPhoneCategoryByCode(phoneCategories, mozambiqueCode), mozambiquePattern);
-        List<PhoneCategory> uganda = validate(getPhoneCategoryByCode(phoneCategories, ugandaCode), ugandaPattern);
+        List<PhoneCategory> cameroon = validate(getPhoneCategoryByCode(phoneCategories, Definations.cameroonCode), Definations.cameroonPattern);
+        List<PhoneCategory> ethiopia = validate(getPhoneCategoryByCode(phoneCategories, Definations.ethiopiaCode), Definations.ethiopiaPattern);
+        List<PhoneCategory> morocco = validate(getPhoneCategoryByCode(phoneCategories, Definations.moroccoCode), Definations.moroccoPattern);
+        List<PhoneCategory> mozambique = validate(getPhoneCategoryByCode(phoneCategories, Definations.mozambiqueCode), Definations.mozambiquePattern);
+        List<PhoneCategory> uganda = validate(getPhoneCategoryByCode(phoneCategories, Definations.ugandaCode), Definations.ugandaPattern);
 
         validatedPhoneNumbers.addAll(cameroon);
         validatedPhoneNumbers.addAll(ethiopia);

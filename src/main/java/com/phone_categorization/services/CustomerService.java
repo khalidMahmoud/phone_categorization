@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CustomerService
 {
-    public List<PhoneCategory> getAllCustomers();
+    List<PhoneCategory> getAllCustomers();
 }

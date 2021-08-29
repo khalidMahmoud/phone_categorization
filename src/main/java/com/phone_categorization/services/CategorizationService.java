@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CategorizationService
 {
-    public List<PhoneCategory> categorizePhoneNumbers(List<Customer> customers);
+    List<PhoneCategory> categorizePhoneNumbers(List<Customer> customers);
 }
