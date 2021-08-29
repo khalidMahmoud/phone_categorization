@@ -15,4 +15,28 @@ public class Util
         countryCode.put("256", "Uganda");
         return countryCode;
     }
+
+    public static String getPhoneCode(String phone)
+    {
+        if (phone.contains("(") && phone.contains(")"))
+        {
+            return "(" + phone.substring(phone.indexOf("(") + 1, phone.indexOf(")")) + ")";
+        } else
+        {
+            return "";
+        }
+    }
+
+    public static String deleteBrackets(String phone)
+    {
+        if (phone.contains("(") && phone.contains(")"))
+            return phone.substring(phone.indexOf("(") + 1, phone.indexOf(")"));
+        else
+            return phone;
+    }
+
+    public static String deletePhoneCode(String phone)
+    {
+        return phone.substring(phone.indexOf(" ")).trim();
+    }
 }

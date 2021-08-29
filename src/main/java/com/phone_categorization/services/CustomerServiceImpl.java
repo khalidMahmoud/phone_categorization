@@ -27,9 +27,7 @@ public class CustomerServiceImpl implements CustomerService
         List<String> phoneNumbers = customers.stream().map(customer -> customer.getPhone()).collect(Collectors.toList());
         Pattern pattern = Pattern.compile("\\(237\\)\\ ?[2368]\\d{7,8}$");
 
-        List<String> matching = phoneNumbers.stream()
-                .filter(pattern.asPredicate())
-                .collect(Collectors.toList());
+        List<String> matching = phoneNumbers.stream().filter(pattern.asPredicate()).collect(Collectors.toList());
         return matching;
     }
 }
