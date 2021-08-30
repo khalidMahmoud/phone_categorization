@@ -17,7 +17,7 @@ public class PhoneController
     @Autowired
     private CustomerServiceImpl customerService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "phoneList", method = RequestMethod.GET)
     public List<PhoneCategory> readCustomers()
     {
