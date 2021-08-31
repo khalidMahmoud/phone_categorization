@@ -5,6 +5,11 @@ import java.util.Map;
 
 public class Util
 {
+    /*
+    * Put countries codes in map
+    * key => code
+    * value => country name
+    * */
     public static Map<String, String> prepareCountryCodeMap()
     {
         Map countryCode = new HashMap();
@@ -16,6 +21,9 @@ public class Util
         return countryCode;
     }
 
+    /*
+    * Substring phone number to get code
+    * */
     public static String getPhoneCode(String phone)
     {
         if (phone.contains("(") && phone.contains(")"))
@@ -27,6 +35,9 @@ public class Util
         }
     }
 
+    /*
+    * Delete code brackets
+    * */
     public static String deleteBrackets(String phone)
     {
         if (phone.contains("(") && phone.contains(")"))
@@ -35,6 +46,9 @@ public class Util
             return phone;
     }
 
+    /*
+    * Delete code from the full phone number
+    * */
     public static String deletePhoneCode(String phone)
     {
         return phone.substring(phone.indexOf(" ")).trim();

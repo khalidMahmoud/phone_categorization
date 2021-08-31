@@ -20,8 +20,15 @@ public class CustomerServiceImpl implements CustomerService
     @Override
     public List<PhoneCategory> getAllCustomers()
     {
+        /**
+         *call db and get list of customers
+         */
         List<Customer> customers = customerRepository.findAll();
 
+        /**
+         * Categorize these customers phone numbers
+         * which country and valid or not valid
+         */
         return categorizationService.categorizePhoneNumbers(customers);
     }
 }

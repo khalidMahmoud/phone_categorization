@@ -2,6 +2,9 @@ package com.phone_categorization.utils;
 
 public class Definations
 {
+    /*
+    * Predefined codes and regex patterns
+    * */
     public final static String cameroonCode = "(237)";
     public final static String cameroonPattern = "\\(237\\)\\ ?[2368]\\d{7,8}$";
     public final static String ethiopiaCode = "(251)";

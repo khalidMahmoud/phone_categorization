@@ -17,6 +17,9 @@ public class PhoneController
     @Autowired
     private CustomerServiceImpl customerService;
 
+    /*
+    * Get categorized phone numbers API
+    * */
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "phoneList", method = RequestMethod.GET)
     public List<PhoneCategory> readCustomers()

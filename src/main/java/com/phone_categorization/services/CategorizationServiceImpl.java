@@ -23,6 +23,9 @@ public class CategorizationServiceImpl implements CategorizationService
         return categorizeCountries(customers);
     }
 
+    /*
+    * Categorize and validate phone numbers
+    * */
     private List<PhoneCategory> categorizeCountries(List<Customer> customers)
     {
         List<PhoneCategory> phoneCategories = convertCustomerToPhoneCategory(customers);
@@ -32,6 +35,10 @@ public class CategorizationServiceImpl implements CategorizationService
             return null;
     }
 
+    /*
+    * Convert list of customer objects to phoneCategory object
+    * country, phone, code, state and number
+    * */
     private List<PhoneCategory> convertCustomerToPhoneCategory(List<Customer> customers)
     {
         Map<String, String> countryCodeMap = Util.prepareCountryCodeMap();
@@ -54,7 +61,9 @@ public class CategorizationServiceImpl implements CategorizationService
         return phoneCategories;
     }
 
-
+    /*
+    * Validate phone numbers using regex
+    * */
     private List<PhoneCategory> categorizeValidAndNotValid(List<PhoneCategory> phoneCategories)
     {
         List<PhoneCategory> validatedPhoneNumbers = new ArrayList();
@@ -74,12 +83,18 @@ public class CategorizationServiceImpl implements CategorizationService
         return validatedPhoneNumbers;
     }
 
+    /*
+    * Categorize phone number by code
+    * */
     private List<PhoneCategory> getPhoneCategoryByCode(List<PhoneCategory> phoneCategories, String code)
     {
         return phoneCategories.stream().filter(element -> element.getCode().equals(code)).
                 collect(Collectors.toList());
     }
 
+    /*
+    * Validate number if pass the regex pattern or not
+    * */
     private List<PhoneCategory> validate(List<PhoneCategory> phoneCategories, String patern)
     {
 
