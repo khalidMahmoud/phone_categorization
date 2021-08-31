@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService
     private CategorizationServiceImpl categorizationService;
 
     @Override
-    public List<PhoneCategory> getAllCustomers()
+    public List<PhoneCategory> getCategorizedPhoneNmbers()
     {
         /**
          *call db and get list of customers

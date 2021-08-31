@@ -24,6 +24,6 @@ public class PhoneController
     @RequestMapping(value = "phoneList", method = RequestMethod.GET)
     public List<PhoneCategory> readCustomers()
     {
-        return customerService.getAllCustomers();
+        return customerService.getCategorizedPhoneNmbers();
     }
 }
