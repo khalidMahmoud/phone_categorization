@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  database:
+    image: keinos/sqlite3
+    container_name: database
+    environment:
+      DB_DATABASE: sample.db
+      DB_USER: user
+    networks:
+      - backendNetwork
+
+  springapi:
+    image: library/openjdk:8
+    container_name: springapi
+    ports:
+      - 8082:8082
+    depends_on:
+      - database
+    volumes:
+      - ./phone_categorization/target/phone-categorization.jar:/phone-categorization.jar
+    command: ["java", "-jar", "phone-categorization.jar"]
+    networks:
+      - backendNetwork
+      - frontendNetwork
+
+  angular:
+    image: nginx:alpine
+    container_name: angular-container2
+    ports:
+      - 4201:80
+    depends_on:
+      - springapi
+    volumes:
+      - ./phoneCategorizationClient/nginx.conf:/etc/nginx/nginx.conf
+      - ./phoneCategorizationClient/dist/phoneCategorizationClient/:/usr/share/nginx/html
+    networks:
+      - frontendNetwork
+
+
+volumes:
+  dockerAngularSpringDatabaseData:
+
+networks:
+  backendNetwork:
+  frontendNetwork:
